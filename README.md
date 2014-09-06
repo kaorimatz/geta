@@ -1,6 +1,7 @@
 # Geta
 
 [![Code Climate](http://img.shields.io/codeclimate/github/kaorimatz/geta.svg?style=flat)](https://codeclimate.com/github/kaorimatz/geta)
+[![Dependency Status](http://img.shields.io/gemnasium/kaorimatz/geta.svg?style=flat)](https://gemnasium.com/kaorimatz/geta)
 
 ## Description
 
