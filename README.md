@@ -1,5 +1,7 @@
 # Geta
 
+[![Code Climate](http://img.shields.io/codeclimate/github/kaorimatz/geta.svg?style=flat)](https://codeclimate.com/github/kaorimatz/geta)
+
 ## Description
 
 Create the cobbler system record for your existing linux system based on the information collected through SSH.
