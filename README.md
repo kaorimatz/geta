@@ -2,6 +2,7 @@
 
 [![Code Climate](http://img.shields.io/codeclimate/github/kaorimatz/geta.svg?style=flat)](https://codeclimate.com/github/kaorimatz/geta)
 [![Dependency Status](http://img.shields.io/gemnasium/kaorimatz/geta.svg?style=flat)](https://gemnasium.com/kaorimatz/geta)
+[![MIT License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/kaorimatz/geta/blob/master/LICENSE)
 
 ## Description
 
