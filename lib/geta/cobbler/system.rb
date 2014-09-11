@@ -1,10 +1,6 @@
 module Geta
   module Cobbler
     class System < Base
-      attr_reader :name
-      attr_reader :profile
-      attr_reader :network
-
       def initialize(name, profile, network)
         @name = name
         @profile = profile
@@ -13,7 +9,7 @@ module Geta
 
       def create
         create_system
-        network.interfaces.each do |interface|
+        @network.interfaces.each do |interface|
           create_interface(interface)
         end
         nil
@@ -23,19 +19,19 @@ module Geta
 
       def create_system
         command = CommandBuilder.new('system add') do |builder|
-          builder.option('name', name)
-          builder.option('profile', profile)
-          builder.option('gateway', network.gateway)
-          builder.option('hostname', network.hostname)
-          builder.option('name-servers', network.name_servers, :array)
-          builder.option('name-servers-search', network.name_servers_search, :array)
+          builder.option('name', @name)
+          builder.option('profile', @profile)
+          builder.option('gateway', @network.gateway)
+          builder.option('hostname', @network.hostname)
+          builder.option('name-servers', @network.name_servers, :array)
+          builder.option('name-servers-search', @network.name_servers_search, :array)
         end.build
         system(command)
       end
 
       def create_interface(interface)
         command = CommandBuilder.new('system edit') do |builder|
-          builder.option('name', name)
+          builder.option('name', @name)
           builder.option('interface', interface.name)
           builder.option('interface-type', interface_type(interface))
           builder.option('ip-address', interface.ip_address)

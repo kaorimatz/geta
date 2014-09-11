@@ -1,9 +1,5 @@
 module Geta
   class SSH
-    attr_reader :host
-    attr_reader :user
-    attr_reader :options
-
     def initialize(host, user, options)
       @host = host
       @user = user
@@ -43,7 +39,7 @@ module Geta
     end
 
     def session
-      @session ||= Net::SSH.start(host, user, options)
+      @session ||= Net::SSH.start(@host, @user, @options)
     end
   end
 end

@@ -1,7 +1,5 @@
 module Geta
   class CLI
-    attr_reader :arguments
-
     def self.run(arguments)
       new(arguments).run
     end
@@ -39,11 +37,11 @@ module Geta
     end
 
     def hostname
-      arguments[0]
+      @arguments[0]
     end
 
     def options
-      @options ||= Slop.parse!(arguments, help: true) do
+      @options ||= Slop.parse!(@arguments, help: true) do
         banner 'Usage: geta [options] <hostname>'
         on('n', 'name=', 'Specify system name.')
         on('p', 'profile=', 'Specify profile name to which system belongs.')
