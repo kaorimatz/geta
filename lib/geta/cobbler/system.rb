@@ -22,31 +22,33 @@ module Geta
       private
 
       def create_system
-        command = "sudo cobbler system add"
-        options = ["--name='#{name}'", "--profile='#{profile}'"]
-        options << option('gateway', :string, network.gateway)
-        options << option('hostname', :string, network.hostname)
-        options << option('name-servers', :array, network.name_servers)
-        options << option('name-servers-search', :array, network.name_servers_search)
-        command += ' ' + options.compact.join(' ')
+        command = CommandBuilder.new('system add') do |builder|
+          builder.option('name', name)
+          builder.option('profile', profile)
+          builder.option('gateway', network.gateway)
+          builder.option('hostname', network.hostname)
+          builder.option('name-servers', network.name_servers, :array)
+          builder.option('name-servers-search', network.name_servers_search, :array)
+        end.build
         system(command)
       end
 
       def create_interface(interface)
-        command = "sudo cobbler system edit"
-        options = ["--name='#{name}'", "--interface='#{interface.name}'"]
-        options << option('interface-type', :string, type(interface))
-        options << option('ip-address', :string, interface.ip_address)
-        options << option('netmask', :string, interface.netmask)
-        options << option('mac-address', :string, interface.mac_address)
-        options << option('static-routes', :array, interface.static_routes)
-        options << option('bonding-opts', :string, interface.bonding_options)
-        options << option('bridge-opts', :string, interface.bridge_options)
-        command += ' ' + options.compact.join(' ')
+        command = CommandBuilder.new('system edit') do |builder|
+          builder.option('name', name)
+          builder.option('interface', interface.name)
+          builder.option('interface-type', interface_type(interface))
+          builder.option('ip-address', interface.ip_address)
+          builder.option('netmask', interface.netmask)
+          builder.option('mac-address', interface.mac_address)
+          builder.option('static-routes', interface.static_routes, :array)
+          builder.option('bonding-opts', interface.bonding_options)
+          builder.option('bridge-opts', interface.bridge_options)
+        end.build
         system(command)
       end
 
-      def type(interface)
+      def interface_type(interface)
         if interface.bridge?
           'bridge'
         elsif interface.bond_slave?

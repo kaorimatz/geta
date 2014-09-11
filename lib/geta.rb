@@ -5,6 +5,7 @@ require 'slop'
 
 require 'geta/cli'
 require 'geta/cobbler/base'
+require 'geta/cobbler/command_builder'
 require 'geta/cobbler/system'
 require 'geta/collectors/base'
 require 'geta/collectors/commands'
