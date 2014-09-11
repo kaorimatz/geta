@@ -113,21 +113,11 @@ module Geta
       end
 
       def get_ip_addresses(interface)
-        command = ""
-        command += "/usr/sbin/ip address show #{interface} | "
-        command += "grep -E '^    inet ' | "
-        command += "awk '{ print $2 }' | "
-        command += "awk -F / '{ print $1 }'"
-        command
+        "#{get_ip_addresses_with_prefixes(interface)} | cut -d / -f 1"
       end
 
       def get_prefix_lengths(interface)
-        command = ""
-        command += "/usr/sbin/ip address show #{interface} | "
-        command += "grep -E '^    inet ' | "
-        command += "awk '{ print $2 }' | "
-        command += "awk -F / '{ print $2 }'"
-        command
+        "#{get_ip_addresses_with_prefixes(interface)} | cut -d / -f 2"
       end
 
       def check_is_bonding_interface(interface)
@@ -163,6 +153,14 @@ module Geta
       end
 
       private
+
+      def get_ip_addresses_with_prefixes(interface)
+        command = ""
+        command += "/usr/sbin/ip address show #{interface} | "
+        command += "grep -E '^    inet ' | "
+        command += "awk '{ print $2 }'"
+        command
+      end
 
       def get_bonding_option_value(interface, option)
         "awk '{ print $1 }' /sys/class/net/#{interface}/bonding/#{option}"
